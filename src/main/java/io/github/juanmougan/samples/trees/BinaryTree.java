@@ -25,17 +25,17 @@ public class BinaryTree<T extends Comparable<T>> {
 
 	private boolean isDataInTree(Node<T> rootNode, T nodeData) {
 		// If tree is empty, return false
-		if (this.root == null) {
+		if (rootNode == null) {
 			return false;
 		}
 		// If root == element, return element
-		if (this.root.equals(nodeData)) {
+		if (rootNode.data.equals(nodeData)) {
 			return true;
 		}
 		// Else
 		// If element < root, will iterate to the left
 		// If element > root, will iterate to the right
-		int comparation = nodeData.compareTo(this.root.data);
+		int comparation = nodeData.compareTo(rootNode.data);
 		if (comparation <= 0) { // equal element will go to the left
 			return isDataInTree(rootNode.left, nodeData);
 		} else {
@@ -52,7 +52,7 @@ public class BinaryTree<T extends Comparable<T>> {
 			node = new Node<T>(data);
 			this.root = node;
 		} else {
-			int comparation = data.compareTo(this.root.data);
+			int comparation = data.compareTo(node.data);
 			if (comparation <= 0) { // equal element will go to the left
 				node.left = insert(node.left, data);
 			} else {
