@@ -31,7 +31,7 @@ public class BinaryTreeTest {
 	@After
 	public void tearDown() throws Exception {
 	}
-	
+
 	@Test
 	public void testInsertOnlyRootElement() {
 		// Given
@@ -42,7 +42,7 @@ public class BinaryTreeTest {
 		// Then
 		Assert.assertEquals(new Integer(1), emptyTree.getRoot().data);
 	}
-	
+
 	@Test
 	public void testInsertMoreElements() {
 		// Given
@@ -58,6 +58,42 @@ public class BinaryTreeTest {
 		Assert.assertTrue(tree.isDataInTree(new Integer(3)));
 	}
 
+	@Test
+	public void testInPreOrderTrasversal() {
+		// Given
+		BinaryTree<Integer> tree = new BinaryTree<>();
+		// When
+		tree.insert(2);
+		tree.insert(3);
+		tree.insert(1);
+		// Then
+		tree.trasverseInPreOrder(tree.getRoot());
+	}
+	
+	@Test
+	public void testInOrderTrasversal() {
+		// Given
+		BinaryTree<Integer> tree = new BinaryTree<>();
+		// When
+		tree.insert(2);
+		tree.insert(3);
+		tree.insert(1);
+		// Then
+		tree.trasverseInOrder(tree.getRoot());
+	}
+	
+	@Test
+	public void testInPostOrderTrasversal() {
+		// Given
+		BinaryTree<Integer> tree = new BinaryTree<>();
+		// When
+		tree.insert(2);
+		tree.insert(3);
+		tree.insert(1);
+		// Then
+		tree.trasverseInPostOrder(tree.getRoot());
+	}
+
 	// TODO move these tests elsewhere - Node should be a top level class
 	@Test
 	public void testComparator() {
@@ -67,7 +103,7 @@ public class BinaryTreeTest {
 		boolean shouldBeSmaller = someNode.nodeLessThan(new Node<Integer>(7));
 		Assert.assertEquals(true, shouldBeSmaller);
 	}
-	
+
 	@Test
 	public void testEquals() {
 		Node<Integer> someNode = new Node<Integer>(5);

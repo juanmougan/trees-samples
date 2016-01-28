@@ -105,4 +105,47 @@ public class BinaryTree<T extends Comparable<T>> {
 
 	}
 
+	/**
+	 * PreOrder traversal - visit the parent first and then left and right children;
+	 * @param node
+	 */
+	public void trasverseInPreOrder(Node<T> node) {
+		if (node == null) {
+			return;
+		}
+		this.visitNode(node);
+		this.trasverseInPreOrder(node.left);
+		this.trasverseInPreOrder(node.right);
+	}
+	
+	/**
+	 * InOrder traversal - visit the left child, then the parent and the right child;
+	 * @param node
+	 */
+	public void trasverseInOrder(Node<T> node) {
+		if (node == null) {
+			return;
+		}
+		this.trasverseInOrder(node.left);
+		this.visitNode(node);
+		this.trasverseInOrder(node.right);
+	}
+	
+	/**
+	 * PostOrder traversal - visit left child, then the right child and then the parent;
+	 * @param node
+	 */
+	public void trasverseInPostOrder(Node<T> node) {
+		if (node == null) {
+			return;
+		}
+		this.trasverseInOrder(node.left);
+		this.trasverseInOrder(node.right);
+		this.visitNode(node);
+	}
+
+	private void visitNode(Node<T> node) {
+		System.out.println("Visiting node: " + node.data);
+	}
+
 }
