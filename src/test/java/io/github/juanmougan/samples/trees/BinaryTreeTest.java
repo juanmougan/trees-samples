@@ -3,8 +3,6 @@
  */
 package io.github.juanmougan.samples.trees;
 
-import static org.junit.Assert.*;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -95,18 +93,6 @@ public class BinaryTreeTest {
 		tree.insert(1);
 		// Then
 		tree.trasverseInPostOrder(tree.getRoot());
-	}
-	
-	@Test
-	public void testInLevelOrderTrasversal() {
-		// Given
-		BinaryTree<Integer> tree = new BinaryTree<>();
-		// When
-		tree.insert(2);
-		tree.insert(3);
-		tree.insert(1);
-		// Then
-		tree.trasverseInLevelOrder(tree.getRoot());
 	}
 	
 	@Test
