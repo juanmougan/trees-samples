@@ -5,6 +5,9 @@ package io.github.juanmougan.samples.trees;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -120,8 +123,7 @@ public class BinaryTreeTest {
 			   9   6       8
 		 */
 		BinaryTree<Integer> tree = new BinaryTree<>();
-		// When
-		tree.insert(1);
+		tree.insert(new Node<Integer>(1));
 		tree.insert(new Node<Integer>(3));
 		tree.insert(new Node<Integer>(5));
 		tree.insert(new Node<Integer>(2));
@@ -130,8 +132,13 @@ public class BinaryTreeTest {
 		tree.insert(new Node<Integer>(9));
 		tree.insert(new Node<Integer>(6));
 		tree.insert(new Node<Integer>(8));
-		// Then
+		// When
 		tree.trasverseInLevelOrder(tree.getRoot());
+		// Then
+		List<Node<Integer>> expectedList = Arrays.asList(new Node<Integer>(1), new Node<Integer>(3), new Node<Integer>(5), 
+				new Node<Integer>(2), new Node<Integer>(4), new Node<Integer>(7), new Node<Integer>(9), 
+				new Node<Integer>(6), new Node<Integer>(8));
+		Assert.assertEquals(expectedList, tree.getVisitedNodes());
 	}
 
 	@Test

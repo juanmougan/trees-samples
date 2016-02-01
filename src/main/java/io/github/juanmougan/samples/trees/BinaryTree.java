@@ -4,6 +4,7 @@
 package io.github.juanmougan.samples.trees;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 /**
@@ -13,6 +14,7 @@ import java.util.Queue;
 public class BinaryTree<T extends Comparable<T>> {
 
 	private Node<T> root;
+	private List<Node<T>> visitedNodes = new LinkedList<>();		// Added to check proper visit order. Cheaper insertions...
 
 	public BinaryTree() {
 		this.root = null;
@@ -22,6 +24,10 @@ public class BinaryTree<T extends Comparable<T>> {
 		return root;
 	}
 	
+	public List<Node<T>> getVisitedNodes() {
+		return visitedNodes;
+	}
+
 	public boolean isDataInTree(T data) {
 		return this.isDataInTree(this.root, data);
 	}
@@ -50,23 +56,22 @@ public class BinaryTree<T extends Comparable<T>> {
 		this.root = this.insert(this.root, data);
 	}
 	
-	public void insertChildrenForNode(T left, T right) {
-		this.root.left = new Node<T>(left);
-		this.root.right = new Node<T>(right);
-	}
-	
-	public void insert(Node node) {
+	/**
+	 * Inserts a {@link Node} in the tree in an iterative fashion.
+	 * @param node node to be inserted.
+	 */
+	public void insert(Node<T> node) {
 	    if(root == null) {
 	        root = node;
 	        return;
 	    }
 
 	    /* insert using Breadth-first-search (queue to the rescue!) */
-	    Queue<Node> queue = new LinkedList<Node>();
+	    Queue<Node<T>> queue = new LinkedList<>();
 	    queue.offer(root);
 
 	    while(true) {
-	        Node n = queue.remove();
+	        Node<T> n = queue.remove();
 	        if(!n.visited) System.out.println(n.data);
 	        n.visited = true;
 
@@ -158,6 +163,7 @@ public class BinaryTree<T extends Comparable<T>> {
 	 * @param node
 	 */
 	public void trasverseInLevelOrder(Node<T> node) {
+		this.visitedNodes.clear();
 		Queue<Node<T>> queue = new LinkedList<>(); 
 		if (node == null) {
 			return;
@@ -215,6 +221,7 @@ public class BinaryTree<T extends Comparable<T>> {
 
 	private void visitNode(Node<T> node) {
 		System.out.println("Visiting node: " + node.data);
+		this.visitedNodes.add(node);
 	}
 
 }
