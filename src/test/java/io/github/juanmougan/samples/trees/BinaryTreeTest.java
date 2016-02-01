@@ -93,8 +93,47 @@ public class BinaryTreeTest {
 		// Then
 		tree.trasverseInPostOrder(tree.getRoot());
 	}
+	
+	@Test
+	public void testInLevelOrderTrasversal() {
+		// Given
+		BinaryTree<Integer> tree = new BinaryTree<>();
+		// When
+		tree.insert(2);
+		tree.insert(3);
+		tree.insert(1);
+		// Then
+		tree.trasverseInLevelOrder(tree.getRoot());
+	}
+	
+	@Test
+	public void testInLevelOrderTrasversalForBigTree() {
+		// Given
+		/*
+		 * ASCII art of the requested graph
+			         1
+			        / \
+			       3   5
+			      / \   \
+			     2   4   7
+			    / \       \
+			   9   6       8
+		 */
+		BinaryTree<Integer> tree = new BinaryTree<>();
+		// When
+		tree.insert(1);
+		tree.insert(new Node<Integer>(3));
+		tree.insert(new Node<Integer>(5));
+		tree.insert(new Node<Integer>(2));
+		tree.insert(new Node<Integer>(4));
+		tree.insert(new Node<Integer>(7));
+		tree.insert(new Node<Integer>(9));
+		tree.insert(new Node<Integer>(6));
+		tree.insert(new Node<Integer>(8));
+		// Then
+		tree.trasverseInLevelOrder(tree.getRoot());
+	}
 
-	// TODO move these tests elsewhere - Node should be a top level class
 	@Test
 	public void testComparator() {
 		Node<Integer> someNode = new Node<Integer>(5);

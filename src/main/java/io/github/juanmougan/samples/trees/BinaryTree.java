@@ -3,6 +3,9 @@
  */
 package io.github.juanmougan.samples.trees;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * @author juanma
  *
@@ -46,11 +49,47 @@ public class BinaryTree<T extends Comparable<T>> {
 	public void insert(T data) {
 		this.root = this.insert(this.root, data);
 	}
+	
+	public void insertChildrenForNode(T left, T right) {
+		this.root.left = new Node<T>(left);
+		this.root.right = new Node<T>(right);
+	}
+	
+	public void insert(Node node) {
+	    if(root == null) {
+	        root = node;
+	        return;
+	    }
+
+	    /* insert using Breadth-first-search (queue to the rescue!) */
+	    Queue<Node> queue = new LinkedList<Node>();
+	    queue.offer(root);
+
+	    while(true) {
+	        Node n = queue.remove();
+	        if(!n.visited) System.out.println(n.data);
+	        n.visited = true;
+
+	        if(n.left == null) {
+	            n.left = node;
+	            break;
+	        } else {
+	            queue.offer(n.left);
+	        }           
+
+	        if(n.right == null) {
+	            n.right = node;
+	            break;
+	        } else {
+	            queue.offer(n.right);
+	        }
+	    }
+	}
 
 	private Node<T> insert(Node<T> node, T data) {
 		if (node == null) {
 			node = new Node<T>(data);
-			this.root = node;
+//			this.root = node;
 		} else {
 			int comparation = data.compareTo(node.data);
 			if (comparation <= 0) { // equal element will go to the left
@@ -66,11 +105,20 @@ public class BinaryTree<T extends Comparable<T>> {
 		T data;
 		Node<T> left;
 		Node<T> right;
+		boolean visited = false;
 
 		public Node(T data) {
 			this.data = data;
 			this.left = null;
 			this.right = null;
+		}
+
+		public void setLeft(Node<T> left) {
+			this.left = left;
+		}
+
+		public void setRight(Node<T> right) {
+			this.right = right;
 		}
 
 		@Override
@@ -103,6 +151,27 @@ public class BinaryTree<T extends Comparable<T>> {
 			return comparation < 0; // I don't care about equality...
 		}
 
+	}
+	
+	/**
+	 * LevelOrder traversal - Visits nodes by levels from top to bottom and from left to right.
+	 * @param node
+	 */
+	public void trasverseInLevelOrder(Node<T> node) {
+		Queue<Node<T>> queue = new LinkedList<>(); 
+		if (node == null) {
+			return;
+		}
+		queue.clear();
+	    queue.add(node);
+	    while (!queue.isEmpty()) {
+	        Node<T> currentNode = queue.remove();
+	        this.visitNode(currentNode);
+	        if(currentNode.left != null) 
+	        	queue.add(currentNode.left);
+	        if(currentNode.right != null) 
+	        	queue.add(currentNode.right);
+	    }
 	}
 
 	/**
